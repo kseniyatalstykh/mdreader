@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:googleapis/drive/v3.dart' as drive;
-import 'package:google_sign_in/google_sign_in.dart' as googleSignIn;
+import './navigation-drawer.dart';
 
-class EditorPage extends StatelessWidget {
-  EditorPage({Key key, this.title}) : super(key: key);
+class Editor extends StatefulWidget {
+  @override
+  EditorState createState() => EditorState();
+}
 
-  final String title;
+class EditorState extends State<Editor> {
+  TextEditingController _textEditingController;
 
-  Future<void> signIn() async {
-    final googleSignInScopes = googleSignIn.GoogleSignIn.standard(scopes: [drive.DriveApi.DriveScope]);
-    final googleSignIn.GoogleSignInAccount account = await googleSignInScopes.signIn();
-
-    print("User account $account");
+  @override
+  void initState() {
+    this._textEditingController = TextEditingController();
   }
 
   @override
@@ -19,23 +19,24 @@ class EditorPage extends StatelessWidget {
       return Scaffold(
       appBar: AppBar(
         title: Text(
-          this.title, 
+          'Notes', 
           style: TextStyle(
             color: Colors.white
           )
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.cloud_download,
-              color: Colors.white,
-            ),
-            onPressed: signIn,
-          )
-        ],
+        iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: Center(
-        ),
+      body: Container(
+        margin: EdgeInsets.all(20),
+        child: TextField(
+          controller: _textEditingController,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: 'INPUT TEXT'
+          )
+        )
+      ),
+      drawer: NavigationDrawer(), 
     );
   }
 }

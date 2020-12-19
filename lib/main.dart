@@ -14,7 +14,7 @@ class MarkdownReader extends StatelessWidget {
         primarySwatch: Colors.lightGreen,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: EditorPage(title: 'Editor'),
+      home: Editor(),
     );
   }
 }
